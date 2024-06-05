@@ -1,0 +1,14 @@
+.bar {
+  width: 100vw;
+  height: auto;
+  background-color: var(--mantine-color-dark-filled);
+  justify-content: space-between;
+}
+.logo {
+  width: 300px;
+  height: 80px;
+  background-color: var(--mantine-color-pink-filled);
+}
+.navGroup {
+  padding-right: 1rem;
+}

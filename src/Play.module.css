@@ -1,0 +1,108 @@
+.lotteryNumbersContainer {
+  width: max-content;
+  padding: 1rem 4rem;
+  background-color: var(--mantine-primary-color-0);
+  border-radius: var(--mantine-radius-lg);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 1rem 1rem;
+  }
+}
+
+.lotteryNumber {
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--mantine-primary-color-5);
+  font-weight: bold;
+  font-size: var(--mantine-font-size-xl);
+  color: var(--mantine-color-white);
+
+  &[data-filled] {
+    background-color: var(--mantine-primary-color-5);
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    width: 3rem;
+    height: 3rem;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: var(--mantine-font-size-md);
+  }
+}
+
+.luckyDogText {
+  background-color: var(--mantine-primary-color-0);
+  width: 8rem;
+  padding-left: 1rem;
+  padding-bottom: 0.2rem;
+  padding-top: 0.2rem;
+
+  border-right: none;
+  border-radius: var(--mantine-radius-md);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+
+  color: var(--mantine-primary-color-5);
+  transition: all 0.1s;
+}
+
+.luckyDogImg {
+  transition: scale 0.1s;
+}
+
+.luckyDogButton:hover,
+.luckyDogButton:active {
+  .luckyDogText {
+    background-color: var(--mantine-primary-color-5);
+    color: var(--mantine-color-white);
+  }
+  .luckyDogImg {
+    scale: 1.1;
+  }
+}
+
+.numpad {
+  width: max-content;
+  padding: 1.5rem;
+  background-color: var(--mantine-primary-color-0);
+  border-radius: var(--mantine-radius-lg);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0.6rem;
+  }
+}
+
+.numberButton {
+  --wh: 3rem;
+  width: var(--wh);
+  height: var(--wh);
+  text-align: center;
+  border: 2px solid var(--mantine-primary-color-5);
+  border-radius: var(--mantine-radius-md);
+  color: var(--mantine-primary-color-5);
+  font-weight: bold;
+  font-size: var(--mantine-font-size-lg);
+
+  &:disabled,
+  &[data-disabled] {
+    border-color: var(--mantine-color-gray-5);
+    color: var(--mantine-color-gray-6);
+    cursor: not-allowed;
+  }
+  &[data-active="true"] {
+    background-color: var(--mantine-primary-color-5);
+    color: var(--mantine-color-white);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    --wh: 2.4rem;
+    font-size: var(--mantine-font-size-md);
+  }
+}

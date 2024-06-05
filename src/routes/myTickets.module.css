@@ -1,0 +1,26 @@
+.ticketContainer {
+    box-shadow: var(--mantine-shadow-md);
+    margin-bottom: var(--mantine-spacing-md);
+    padding: var(--mantine-spacing-sm);
+    border-radius: var(--mantine-radius-md);
+}
+
+.ticketNumbersContainer {
+    background-color: var(--mantine-color-white);
+    padding: var(--mantine-spacing-sm);
+    border-radius: var(--mantine-radius-md);
+    border: 2px solid var(--mantine-color-gray-5);
+  }
+  .ticketNumber {
+    width: 2.2rem;
+    height: 2.2rem;
+    text-align: center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--mantine-primary-color-5);
+    font-weight: bold;
+    font-size: var(--mantine-font-size-xl);
+    color: var(--mantine-color-white);
+  }

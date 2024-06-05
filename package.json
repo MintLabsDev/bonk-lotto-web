@@ -1,0 +1,54 @@
+{
+  "name": "meme-lotto-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --fix",
+    "format": "prettier --write .",
+    "preview": "vite preview"
+  },
+  "resolutions": {
+    "@ledgerhq/devices": "6.27.1",
+    "@ledgerhq/errors": "6.16.3",
+    "@ledgerhq/hw-transport": "6.27.1",
+    "@ledgerhq/hw-transport-webhid": "6.27.1"
+  },
+  "dependencies": {
+    "@leenguyen/react-flip-clock-countdown": "^1.6.0",
+    "@mantine/core": "^7.10.1",
+    "@mantine/hooks": "^7.10.1",
+    "@mantine/notifications": "^7.10.1",
+    "@solana/spl-token": "^0.4.6",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@tabler/icons-react": "^3.5.0",
+    "bn.js": "^5.2.1",
+    "bs58": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.5",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.38",
+    "postcss-preset-mantine": "^1.15.0",
+    "postcss-simple-vars": "^7.0.1",
+    "prettier": "3.2.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
+}
