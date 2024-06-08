@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:digitalocean": "yarn install --production=false && yarn run build && rm -rf node_modules && yarn install --production --frozen-lockfile"
   },
   "resolutions": {
     "@ledgerhq/devices": "6.27.1",
