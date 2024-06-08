@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build; node start.js",
+    "build": "rm -r _static 2>/dev/null; node start.js; vite build",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "start": "node start.js"
+    "start": "node start.js; serve -s _static -l tcp://0.0.0.0:$PORT -n"
   },
   "resolutions": {
     "@ledgerhq/devices": "6.27.1",
