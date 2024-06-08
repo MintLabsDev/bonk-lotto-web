@@ -11,10 +11,11 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import FlipClockCountdown from "@leenguyen/react-flip-clock-countdown";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IconArrowRight } from "@tabler/icons-react";
 import classes from "./Info.module.css";
+import { get_prize_pool } from "./utils";
 
 export type Prop = {
   lotteryDate: Date | null;
@@ -23,7 +24,25 @@ export type Prop = {
 const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
   const theme = useMantineTheme();
 
-  const [prizePool] = useState(2485743);
+  const [prizePool, setPrizePool] = useState(2485743);
+
+  useEffect(() => {
+
+    const getAccounts = async () => {
+        try {
+            const prize = await get_prize_pool();
+            setPrizePool(prize);
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setPrizePool(0);
+        }
+    };
+
+    getAccounts();
+    
+} );
+
   const [latestDrawNumbers] = useState([3, 5, 26, 29, 35, 48]);
 
   return (

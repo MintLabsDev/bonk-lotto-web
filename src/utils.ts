@@ -14,7 +14,14 @@ import {
   Ticket,
 } from "./models";
 
-import { lottery_account, program_id, record_account } from "./accounts";
+import {
+  ASSOCIATED_TOKEN_PROGRAM_ID,
+  getAssociatedTokenAddressSync,
+  //TOKEN_2022_PROGRAM_ID,
+  TOKEN_PROGRAM_ID,
+} from "@solana/spl-token";
+
+import { bonk_mint, lottery_account, program_id, record_account } from "./accounts";
 import { connection } from "./connection";
 import { current_lottery_no, get_distribution } from "./distribution";
 
@@ -101,6 +108,27 @@ export const get_current_lottery_no = async () => {
   return record_data.lottery_no;
 };
 
+export const get_prize_pool = async () => {
+  const record_info = await connection.getAccountInfo(record_account)
+  const record = deserialize(RecordsSchema,Records,record_info?.data)
+  const active_main_counter_no = record.active_main_counter_no;
+  const counter_no_1 = 1;
+  const counter_no_2 = 2;
+  const seed_1 = [Buffer.from("m"),Buffer.from(active_main_counter_no.toString()),Buffer.from("c"),Buffer.from(counter_no_1.toString())];
+  const seed_2 = [Buffer.from("m"),Buffer.from(active_main_counter_no.toString()),Buffer.from("c"),Buffer.from(counter_no_2.toString())];
+  const counter_account_1 = PublicKey.findProgramAddressSync(seed_1,program_id);
+  const counter_account_2 = PublicKey.findProgramAddressSync(seed_2,program_id);
+  const counter_ata_1 = getAssociatedTokenAddressSync(bonk_mint,counter_account_1[0],true,TOKEN_PROGRAM_ID,ASSOCIATED_TOKEN_PROGRAM_ID);
+  const counter_ata_2 = getAssociatedTokenAddressSync(bonk_mint,counter_account_2[0],true,TOKEN_PROGRAM_ID,ASSOCIATED_TOKEN_PROGRAM_ID);
+
+  const balance = (await connection.getTokenAccountBalance(counter_ata_1)).value.uiAmount!
+  const balance2 = (await connection.getTokenAccountBalance(counter_ata_2)).value.uiAmount!
+
+  const total = balance+balance2
+
+  return total;
+}
+
 const check_matches = (game: Game, dist: Dist) => {
   const arr: number[] = [
     game.number1,
@@ -180,3 +208,7 @@ const create_ticket = async (coupon: Game, key: PublicKey) => {
 
   return ticket;
 };
+function getAssociatedTokenAddressSync(bonk_mint: any, arg1: any, arg2: boolean, TOKEN_PROGRAM_ID: any, ASSOCIATED_TOKEN_PROGRAM_ID: any) {
+  throw new Error("Function not implemented.");
+}
+
