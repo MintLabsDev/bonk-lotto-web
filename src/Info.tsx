@@ -24,7 +24,7 @@ export type Prop = {
 const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
   const theme = useMantineTheme();
 
-  const [prizePool, setPrizePool] = useState(2485743);
+  const [prizePool, setPrizePool] = useState(0);
 
   useEffect(() => {
 
