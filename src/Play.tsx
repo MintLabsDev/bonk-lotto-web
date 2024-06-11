@@ -193,8 +193,8 @@ const Play: React.FC = () => {
           <Stack justify="flex-end" h={"100%"}>
             <Box p="md" c="dark">
               <Text>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit
-                veritatis amet dolorem fugiat!
+                Connect your wallet and choose six numbers. 
+                Come back when countdown is zero to check your ticket and claim your prize
               </Text>
             </Box>
             <Button
