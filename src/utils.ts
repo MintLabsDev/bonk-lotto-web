@@ -129,6 +129,15 @@ export const get_prize_pool = async () => {
   return total;
 }
 
+export const get_draw_results = async () => {
+  const lotto = await connection.getAccountInfo(lottery_account);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const lotto_data = deserialize(LotterySchema, Lottery, lotto?.data!);
+
+  return new BN(lotto_data.lottery_time);
+};
+
 const check_matches = (game: Game, dist: Dist) => {
   const arr: number[] = [
     game.number1,

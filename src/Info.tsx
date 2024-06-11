@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { IconArrowRight } from "@tabler/icons-react";
 import classes from "./Info.module.css";
 import { get_prize_pool } from "./utils";
+import { current_lottery_no, get_lucky_numbers } from "./distribution";
 
 export type Prop = {
   lotteryDate: Date | null;
@@ -25,6 +26,7 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
   const theme = useMantineTheme();
 
   const [prizePool, setPrizePool] = useState(0);
+  const [latestDrawNumbers, setLatestDrawnumbers] = useState([0, 0, 0, 0, 0, 0]);
 
   useEffect(() => {
 
@@ -41,9 +43,25 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
 
     getAccounts();
     
-} );
+   },[] );
 
-  const [latestDrawNumbers] = useState([3, 5, 26, 29, 35, 48]);
+   useEffect(() => {
+
+    const getAccounts = async () => {
+        try {
+            const lucky_numbers = await get_lucky_numbers(current_lottery_no-1);
+            setLatestDrawnumbers(lucky_numbers);
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLatestDrawnumbers([0, 0, 0, 0, 0, 0]);
+        }
+    };
+
+    getAccounts();
+    
+   },[] );
+
 
   return (
     <Grid py={rem(32)} align="flex-start" gutter="xs">
