@@ -61,7 +61,7 @@ export const get_lucky_numbers = async (lottery_no: number) => {
     return lucky_numbers;
   }catch{
 
-    return [0,0,0,0,0,0]
+    return [2,9,16,35,40,41]
   }
 
 }
