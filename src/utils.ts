@@ -124,7 +124,7 @@ export const get_prize_pool = async () => {
   const balance = (await connection.getTokenAccountBalance(counter_ata_1)).value.uiAmount!
   const balance2 = (await connection.getTokenAccountBalance(counter_ata_2)).value.uiAmount!
 
-  const total = balance+balance2
+  const total = Math.floor(balance+balance2)
 
   return total;
 }

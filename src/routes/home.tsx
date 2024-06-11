@@ -13,7 +13,7 @@ const Home: React.FC = () => {
     get_lottery_schema().then((time) => {
       // time is in seconds but we need millis
       const date = new Date(time.toNumber() * 1000);
-      date.setDate(date.getDate() + 60);
+      date.setDate(date.getDate() );
       setLotteryDate(date);
     });
     document.title = "Meme Lotto";
