@@ -1,14 +1,15 @@
-import { Box, Button, Divider, Flex, Group } from "@mantine/core";
+import { Button, Divider, Flex, Group, Image } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import classes from "./Navigation.module.css";
+import LuckyDogLogo from "./assets/lucky-dog-logo.png";
 
 const Navigation: React.FC = () => {
   return (
     <>
       <Flex className={classes.bar}>
         <Link to={"/"}>
-          <Box className={classes.logo}></Box>
+          <Image className={classes.logo} src={LuckyDogLogo} radius="md" />
         </Link>
         <Group className={classes.navGroup}>
           <Button
@@ -29,7 +30,7 @@ const Navigation: React.FC = () => {
             orientation="vertical"
             h="80%"
             style={{ alignSelf: "inherit" }}
-            color="pink"
+            color="main"
           />
           <WalletMultiButton />
         </Group>
