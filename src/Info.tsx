@@ -25,8 +25,8 @@ export type Prop = {
 const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
   const theme = useMantineTheme();
 
-  const [prizePool, setPrizePool] = useState(115000);
-  const [latestDrawNumbers, setLatestDrawnumbers] = useState([2,9,16,35,40,41]);
+  const [prizePool, setPrizePool] = useState(0);
+  const [latestDrawNumbers, setLatestDrawnumbers] = useState([0,0,0,0,0,0]);
 
   useEffect(() => {
 
@@ -36,8 +36,8 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
             setPrizePool(prize);
 
         } catch (error) {
-            console.error('Error fetching data:', error);
-            setPrizePool(115000);
+            console.error('Error fetching prize pool:', error);
+            setPrizePool(0);
         }
     };
 
@@ -53,8 +53,8 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
             setLatestDrawnumbers(lucky_numbers);
 
         } catch (error) {
-            console.error('Error fetching data:', error);
-            setLatestDrawnumbers([2,9,16,35,40,41]);
+            console.error('Error fetching lucky numbers:', error);
+            setLatestDrawnumbers([0,0,0,0,0,0]);
         }
     };
 

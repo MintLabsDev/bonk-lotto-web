@@ -50,7 +50,7 @@ export const get_distribution = async (lottery_no: number) => {
 export const get_lucky_numbers = async (lottery_no: number) => {
   
   try{
-    const seed = [Buffer.from("luck"),Buffer.from(lottery_no)]
+    const seed = [Buffer.from("luck"),Buffer.from(lottery_no.toString())]
     const lucky_numbers_account = PublicKey.findProgramAddressSync(seed,program_id);
   
     const account_info = await connection.getAccountInfo(lucky_numbers_account[0]);
@@ -61,7 +61,7 @@ export const get_lucky_numbers = async (lottery_no: number) => {
     return lucky_numbers;
   }catch{
 
-    return [2,9,16,35,40,41]
+    return [0,0,0,0,0,0]
   }
 
 }
