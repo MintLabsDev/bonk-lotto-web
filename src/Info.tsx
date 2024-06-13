@@ -4,6 +4,7 @@ import {
   Center,
   Grid,
   Group,
+  Loader,
   rem,
   Stack,
   Text,
@@ -11,7 +12,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import FlipClockCountdown from "@leenguyen/react-flip-clock-countdown";
-import { useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IconArrowRight } from "@tabler/icons-react";
 import classes from "./Info.module.css";
@@ -26,42 +27,37 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
   const theme = useMantineTheme();
 
   const [prizePool, setPrizePool] = useState(0);
-  const [latestDrawNumbers, setLatestDrawnumbers] = useState([0,0,0,0,0,0]);
+  const [latestDrawNumbers, setLatestDrawnumbers] = useState<
+    number[] | null | undefined
+  >();
 
   useEffect(() => {
-
     const getAccounts = async () => {
-        try {
-            const prize = await get_prize_pool();
-            setPrizePool(prize);
-
-        } catch (error) {
-            console.error('Error fetching prize pool:', error);
-            setPrizePool(0);
-        }
+      try {
+        const prize = await get_prize_pool();
+        setPrizePool(prize);
+      } catch (error) {
+        console.error("Error fetching prize pool:", error);
+        setPrizePool(0);
+      }
     };
 
     getAccounts();
-    
-   },[] );
+  }, []);
 
-   useEffect(() => {
-
+  useEffect(() => {
     const getAccounts = async () => {
-        try {
-            const lucky_numbers = await get_lucky_numbers(current_lottery_no-1);
-            setLatestDrawnumbers(lucky_numbers);
-
-        } catch (error) {
-            console.error('Error fetching lucky numbers:', error);
-            setLatestDrawnumbers([0,0,0,0,0,0]);
-        }
+      try {
+        const lucky_numbers = await get_lucky_numbers(current_lottery_no - 1);
+        setLatestDrawnumbers(lucky_numbers.sort((a, b) => a - b));
+      } catch (error) {
+        console.error("Error fetching lucky numbers:", error);
+        setLatestDrawnumbers(null);
+      }
     };
 
     getAccounts();
-    
-   },[] );
-
+  }, []);
 
   return (
     <Grid py={rem(32)} align="flex-start" gutter="xs">
@@ -121,11 +117,18 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
           <Center>
             <Stack gap="lg">
               <Group className={classes.latestDrawContainer} gap="xs">
-                {latestDrawNumbers.map((num) => (
-                  <Box className={classes.latestDrawNumber} key={num}>
-                    {num}
-                  </Box>
-                ))}
+                {latestDrawNumbers === undefined ? (
+                  <Loader color="blue" />
+                ) : latestDrawNumbers !== null ? (
+                  latestDrawNumbers.map((num) => (
+                    <Box className={classes.latestDrawNumber} key={num}>
+                      {num}
+                    </Box>
+                  ))
+                ) : (
+                  // TODO: error msg
+                  <></>
+                )}
               </Group>
               <Button
                 component={Link}

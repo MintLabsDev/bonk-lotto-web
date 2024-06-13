@@ -4,6 +4,12 @@ import { PublicKey } from "@solana/web3.js";
 import bs58 from "bs58";
 import BN from "bn.js";
 import {
+  ASSOCIATED_TOKEN_PROGRAM_ID,
+  // getAssociatedTokenAddressSync,
+  //TOKEN_2022_PROGRAM_ID,
+  TOKEN_PROGRAM_ID,
+} from "@solana/spl-token";
+import {
   Dist,
   Game,
   GameSchema,
@@ -15,13 +21,11 @@ import {
 } from "./models";
 
 import {
-  ASSOCIATED_TOKEN_PROGRAM_ID,
-  getAssociatedTokenAddressSync,
-  //TOKEN_2022_PROGRAM_ID,
-  TOKEN_PROGRAM_ID,
-} from "@solana/spl-token";
-
-import { bonk_mint, lottery_account, program_id, record_account } from "./accounts";
+  bonk_mint,
+  lottery_account,
+  program_id,
+  record_account,
+} from "./accounts";
 import { connection } from "./connection";
 import { current_lottery_no, get_distribution } from "./distribution";
 
@@ -109,25 +113,58 @@ export const get_current_lottery_no = async () => {
 };
 
 export const get_prize_pool = async () => {
-  const record_info = await connection.getAccountInfo(record_account)
-  const record = deserialize(RecordsSchema,Records,record_info?.data)
+  const record_info = await connection.getAccountInfo(record_account);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const record = deserialize(RecordsSchema, Records, record_info?.data!);
   const active_main_counter_no = record.active_main_counter_no;
   const counter_no_1 = 1;
   const counter_no_2 = 2;
-  const seed_1 = [Buffer.from("m"),Buffer.from(active_main_counter_no.toString()),Buffer.from("c"),Buffer.from(counter_no_1.toString())];
-  const seed_2 = [Buffer.from("m"),Buffer.from(active_main_counter_no.toString()),Buffer.from("c"),Buffer.from(counter_no_2.toString())];
-  const counter_account_1 = PublicKey.findProgramAddressSync(seed_1,program_id);
-  const counter_account_2 = PublicKey.findProgramAddressSync(seed_2,program_id);
-  const counter_ata_1 = getAssociatedTokenAddressSync(bonk_mint,counter_account_1[0],true,TOKEN_PROGRAM_ID,ASSOCIATED_TOKEN_PROGRAM_ID);
-  const counter_ata_2 = getAssociatedTokenAddressSync(bonk_mint,counter_account_2[0],true,TOKEN_PROGRAM_ID,ASSOCIATED_TOKEN_PROGRAM_ID);
+  const seed_1 = [
+    Buffer.from("m"),
+    Buffer.from(active_main_counter_no.toString()),
+    Buffer.from("c"),
+    Buffer.from(counter_no_1.toString()),
+  ];
+  const seed_2 = [
+    Buffer.from("m"),
+    Buffer.from(active_main_counter_no.toString()),
+    Buffer.from("c"),
+    Buffer.from(counter_no_2.toString()),
+  ];
+  const counter_account_1 = PublicKey.findProgramAddressSync(
+    seed_1,
+    program_id,
+  );
+  const counter_account_2 = PublicKey.findProgramAddressSync(
+    seed_2,
+    program_id,
+  );
+  const counter_ata_1 = getAssociatedTokenAddressSync(
+    bonk_mint,
+    counter_account_1[0],
+    true,
+    TOKEN_PROGRAM_ID,
+    ASSOCIATED_TOKEN_PROGRAM_ID,
+  );
+  const counter_ata_2 = getAssociatedTokenAddressSync(
+    bonk_mint,
+    counter_account_2[0],
+    true,
+    TOKEN_PROGRAM_ID,
+    ASSOCIATED_TOKEN_PROGRAM_ID,
+  );
 
-  const balance = (await connection.getTokenAccountBalance(counter_ata_1)).value.uiAmount!
-  const balance2 = (await connection.getTokenAccountBalance(counter_ata_2)).value.uiAmount!
+  const balance = (
+    await connection.getTokenAccountBalance(counter_ata_1 as PublicKey)
+  ).value.uiAmount!;
+  const balance2 = (
+    await connection.getTokenAccountBalance(counter_ata_2 as PublicKey)
+  ).value.uiAmount!;
 
-  const total = Math.floor(balance+balance2)
+  const total = Math.floor(balance + balance2);
 
   return total;
-}
+};
 
 export const get_draw_results = async () => {
   const lotto = await connection.getAccountInfo(lottery_account);
@@ -217,7 +254,12 @@ const create_ticket = async (coupon: Game, key: PublicKey) => {
 
   return ticket;
 };
-function getAssociatedTokenAddressSync(bonk_mint: any, arg1: any, arg2: boolean, TOKEN_PROGRAM_ID: any, ASSOCIATED_TOKEN_PROGRAM_ID: any) {
+const getAssociatedTokenAddressSync = (
+  _bonk_mint: unknown,
+  _arg1: unknown,
+  _arg2: boolean,
+  _TOKEN_PROGRAM_ID: unknown,
+  _ASSOCIATED_TOKEN_PROGRAM_ID: unknown,
+): unknown => {
   throw new Error("Function not implemented.");
-}
-
+};

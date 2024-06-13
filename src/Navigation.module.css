@@ -1,3 +1,10 @@
+@media (max-width: $mantine-breakpoint-xs) {
+  :global(.wallet-adapter-button.wallet-adapter-button-trigger) {
+    padding: 0 8px;
+    height: 2.4rem;
+  }
+}
+
 .bar {
   width: 100vw;
   height: auto;
@@ -6,11 +13,37 @@
 }
 .logo {
   width: 200px;
-  height: 100%;
   background-color: var(--mantine-color-dark-filled);
-  background-size: contain;
   padding: 1rem;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    width: 120px;
+  }
+  &[data-in-drawer="true"] {
+    width: 80% !important;
+    margin: auto;
+  }
 }
-.navGroup {
+.navbarGroup {
   padding-right: 1rem;
+}
+
+.navButtonsGroup {
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: none;
+  }
+}
+.menuButton {
+  display: none;
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: block;
+  }
+}
+.drawer {
+  background-color: var(--mantine-color-dark-filled);
+  justify-content: space-between;
+}
+
+.darkBg {
+  background-color: var(--mantine-color-dark-filled);
 }
