@@ -3,10 +3,10 @@ import {
   PublicKey,
   SignatureStatusConfig,
   SystemProgram,
+  TransactionConfirmationStrategy,
   TransactionInstruction,
   TransactionMessage,
   VersionedTransaction,
-  TransactionConfirmationStrategy
 } from "@solana/web3.js";
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
@@ -356,25 +356,27 @@ export const sell_token_of_the_week_to_program = async (
     data: Buffer.from(concated),
   });
 
-  const blockhash = (await connection.getLatestBlockhash()).blockhash
-  const lastvalidblockheigt = (await connection.getLatestBlockhash()).lastValidBlockHeight
+  const blockhash = (await connection.getLatestBlockhash()).blockhash;
+  const lastvalidblockheigt = (await connection.getLatestBlockhash())
+    .lastValidBlockHeight;
 
   const message = new TransactionMessage({
     instructions: [ix],
     payerKey: wallet.publicKey!,
-    recentBlockhash:blockhash,
+    recentBlockhash: blockhash,
   }).compileToV0Message();
 
   const tx = new VersionedTransaction(message);
 
   send_transaction(wallet, tx);
 
-  const strategy:TransactionConfirmationStrategy = {blockhash:blockhash,
-    lastValidBlockHeight:lastvalidblockheigt,signature:sig}
+  const strategy: TransactionConfirmationStrategy = {
+    blockhash: blockhash,
+    lastValidBlockHeight: lastvalidblockheigt,
+    signature: sig,
+  };
 
-
-  await connection.confirmTransaction(strategy)
-
+  await connection.confirmTransaction(strategy);
 };
 
 const send_transaction = (

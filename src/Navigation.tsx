@@ -12,9 +12,9 @@ import {
 import { Link } from "react-router-dom";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { IconMenu2 } from "@tabler/icons-react";
+import { useDisclosure } from "@mantine/hooks";
 import classes from "./Navigation.module.css";
 import LuckyDogLogo from "./assets/lucky-dog-logo.png";
-import { useDisclosure } from "@mantine/hooks";
 
 const Navigation: React.FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
