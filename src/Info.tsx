@@ -49,7 +49,7 @@ const Navigation: React.FC<Prop> = ({ lotteryDate }) => {
     const getAccounts = async () => {
       try {
         const lucky_numbers = await get_lucky_numbers(current_lottery_no - 1);
-        setLatestDrawnumbers(lucky_numbers);
+        setLatestDrawnumbers(lucky_numbers.sort((a, b) => a - b));
       } catch (error) {
         console.error("Error fetching lucky numbers:", error);
         setLatestDrawnumbers(null);
