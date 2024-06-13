@@ -11,11 +11,11 @@ import {
   Stack,
   Text,
   UnstyledButton,
-  useMatches,
 } from "@mantine/core";
 import { useCallback, useMemo, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { notifications } from "@mantine/notifications";
+import { useMediaQuery } from "@mantine/hooks";
 import classes from "./Play.module.css";
 import LuckyDog from "./assets/lucky-dog.png";
 import { play } from "./service";
@@ -112,10 +112,8 @@ const Play: React.FC = () => {
       });
   };
 
-  const numpadCols = useMatches({
-    xs: 10,
-    base: 5,
-  });
+  const numpad10Cols = useMediaQuery(`(min-width: 540px)`);
+  console.log({ numpad10Cols });
 
   return (
     <>
@@ -167,7 +165,7 @@ const Play: React.FC = () => {
 
         <GridCol span="auto">
           <Center>
-            <SimpleGrid cols={numpadCols} className={classes.numpad}>
+            <SimpleGrid cols={numpad10Cols ? 10 : 5} className={classes.numpad}>
               {Array(49)
                 .fill(null)
                 .map((_, i) => {
@@ -189,12 +187,12 @@ const Play: React.FC = () => {
           </Center>
         </GridCol>
 
-        <GridCol span={3}>
+        <GridCol span={numpad10Cols ? 3 : 12}>
           <Stack justify="flex-end" h={"100%"}>
             <Box p="md" c="dark">
               <Text>
-                Connect your wallet and choose six numbers. 
-                Come back when countdown is zero to check your ticket and claim your prize
+                Connect your wallet and choose six numbers. Come back when
+                countdown is zero to check your ticket and claim your prize
               </Text>
             </Box>
             <Button
