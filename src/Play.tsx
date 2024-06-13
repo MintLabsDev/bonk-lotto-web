@@ -113,7 +113,6 @@ const Play: React.FC = () => {
   };
 
   const numpad10Cols = useMediaQuery(`(min-width: 540px)`);
-  console.log({ numpad10Cols });
 
   return (
     <>
